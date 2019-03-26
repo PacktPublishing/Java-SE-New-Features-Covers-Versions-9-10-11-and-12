@@ -31,27 +31,49 @@ public class OptionalDemo {
     }
 
     public void demoOr() {
-
+        System.out.println("\n\nOptional.or():");
+        var cat = findCatByFunFact("croissant")
+                .or(() -> getMyFavoriteCat());
+        System.out.println(cat);
     }
 
     public void demoIfPresentOrElse() {
-
+        System.out.println("\n\nOptional.ifPresentOrElse():");
+        findCatByFunFact("croissant")
+                .ifPresentOrElse(cat -> System.out.println(cat),
+                        () -> System.out.println("No cat found"));
     }
 
     public void demoOrElseThrow() {
-
+        System.out.println("\n\nOptional.orElseThrow():");
+        findCatByFunFact("croissant")
+                .orElseThrow();
+        //.orElseThrow(IllegalStateException::new);
     }
 
     public void demoStream() {
-
+        System.out.println("\n\nOptional.stream():");
+        var catsForDescriptions = Stream.of("coconut cake", "croissant", "jump")
+                .map(desc -> findCatByFunFact(desc))
+                .flatMap(Optional::stream)
+                .collect(Collectors.toList());
+        System.out.println(catsForDescriptions);
     }
 
     public void demoIfEmpty() {
-
+        System.out.println("\n\nOptional.isEmpty():");
+        if (findCatByFunFact("cake").isEmpty()) {
+            System.out.println("No meow this time, try again later");
+        }
     }
 
     public void demoNotPredicate() {
-
+        System.out.println("\n\nPredicate.not():");
+        var catsThatAreNotElla = cats.stream()
+                // pre-Java 11: .filter(hasName("Ella").negate())
+                .filter(not(hasName("Ella")))
+                .collect(Collectors.toList());
+        System.out.println(catsThatAreNotElla);
     }
 
 

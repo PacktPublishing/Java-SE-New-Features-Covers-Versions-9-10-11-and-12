@@ -12,27 +12,20 @@ public class WinePairing {
         System.out.println(app.getFoodPairingForWine("Gewürztraminer"));
         System.out.println(app.getFoodPairingForWine("Pinot Noir"));
     }
-
+    
+ // Install and enable Java 12 to run this code!!
     private String getFoodPairingForWine(String wine) {
-        String foodPairing;
-        switch (wine) {
-            case "Cabernet Sauvignon":
-                foodPairing = "Lamb chops";
-                break;
-            case "Gewürztraminer":
-                foodPairing = "Feta cheese";
-                break;
-            case "Riesling":
-                foodPairing = "Feta cheese";
-            case "Champagne":
-                foodPairing = "Salty popcorn";
-                break;
-            default:
-                foodPairing = "Fresh bread";
-        }
-        return foodPairing;
+    	return "Install and enable Java 12 to run this code!!";
+//        return switch (wine) {
+//            case "Cabernet Sauvignon" -> "Lamb chops";
+//            case "Gewürztraminer", "Riesling" -> "Feta";
+//            case "Champagne" -> "Salty popcorn";
+//            default -> {
+//                var defaultChoices = List.of("Fresh bread", "Crackers", "Coffee");
+//                break defaultChoices.get(random.nextInt(defaultChoices.size()));
+//            }
+//        };
     }
-
 
 
 }

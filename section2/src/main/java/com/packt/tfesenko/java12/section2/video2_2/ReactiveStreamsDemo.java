@@ -22,6 +22,26 @@ public class ReactiveStreamsDemo {
         PeriodicPublisher<String> weatherPublisher = new PeriodicPublisher<String>(ForkJoinPool.commonPool(), 10,
                 randomWeatherSupplier,
                 1, TimeUnit.SECONDS);
+
+        weatherPublisher.subscribe(new AbstractSubscriber<>("Twitter Subscriber", //
+                (report) -> {
+                    System.out.println("Twitting " + report);
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }));
+
+        weatherPublisher.subscribe(new AbstractSubscriber<>("Persisting Subscriber", //
+                (report) -> {
+                    System.out.println("Saving to database: " + report);
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(1500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }));
     }
 
     public static class AbstractSubscriber<T> implements Flow.Subscriber<T> {

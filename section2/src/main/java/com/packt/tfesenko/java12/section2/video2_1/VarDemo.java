@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class VarDemo {
 
@@ -22,56 +21,96 @@ public class VarDemo {
     }
 
     public static void demoVar() {
-        String cat = "Jack";
 
-        List<String> catNames = List.of("Ella", "Jelly", "Eclair", "Jack");
+        // Without var: String cat = "Jack";
+        var cat = "Jack";
 
-        Map<String, List<String>> catsWithDescription = Map.of(//
+        // List<String> catNames = List.of("Ella", "Jelly", "Eclair", "Jack");
+        var catNames = List.of("Ella", "Jelly", "Eclair", "Jack");
+
+
+        // Map<String, List<String>> catsWithDescriptions = <...>
+        var catsWithDescription = Map.of(//
                 "Jack", List.of("Super-fluffy.", "Sleeps all day long."), //
                 "Ella", List.of("Black Bombay cat.", "Playful, fast, and agile.")//
         );
 
         // In a FOR loop
-        for (int i = 0; i < 10; i++) {
+        for (var i = 0; i < 10; i++) {
             System.out.println(i);
         }
 
         // in a try-with-resources
-        try (Stream<String> lines = Files.lines(Paths.get("src/main/java/com/packt/tfesenko/java12/section2/video2_1/VarDemo.java"))) {
+        try (var lines = Files.lines(Paths.get("src/main/java/com/packt/tfesenko/java12/section2/video2_1/VarDemo.java"))) {
             lines.forEach(line -> System.out.println(line));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+
+        // cannot be use in method signature
+        // cannot be used for a field
+
+        // Orthogonal to final
+        final var bestCatName = "Ella";
+        var secondBestCatName = "Eclair";
+        secondBestCatName = "Jelly";
+
+        // These code snippets Will not compile:
+        // secondBestCatName = 142; //  Change type
+        //var smartVariableName; // No type => cannot infer type
+        //var smartVariableName = null; // Null type => cannot infer type
+
+        // var is not a keyword, it's a reserved type name. Therefore, you can (but shouldn't) use it as a variable name
+        var var = "Eclair";
     }
 
     public static void coolThingsWithVar() {
         // With anonymous classes
-        Object ella = new Object() {
+        var ella = new Object() {
             String name = "Ella";
             String description = "Fluffy";
         };
-        // System.out.println(ella.name); // doesn't compile with Object, compiles with a var
+        System.out.println(ella.name);
 
-        Map<String, List<String>> catsWithDescription = Map.of(//
+        var catsWithDescription = Map.of(//
                 "Jack", List.of("Super-fluffy.", "Sleeps all day long."), //
                 "Ella", List.of("Black Bombay cat.", "Playful, fast, and agile.")//
         );
 
-        List<Object> catObjects = catsWithDescription.entrySet().stream()
+        var catObjects = catsWithDescription.entrySet().stream()
                 .map(cat -> new Object() {
                     String name = cat.getKey();
                     List<String> description = cat.getValue();
                 }).collect(Collectors.toList());
 
-        // catObjects.forEach(cat -> System.out.println(cat.name + ": " + cat.description)); // doesn't compile with Object, compiles with var
+        catObjects.forEach(cat -> System.out.println(cat.name + ": " + cat.description));
 
         // var in lambda parameters
         AddressOperation toSingleLine1 =
                 (String line1, int aptNumber, int zip) -> line1 + ", apt. " + aptNumber + "  " + zip;
+
+        AddressOperation toSingleLine2 =
+                (line1, aptNumber, zip) -> line1 + ", apt. " + aptNumber + "  " + zip;
+
+        // var in lambda parameters, since Java 11
+        AddressOperation toSingleLine3 =
+                (var line1, var aptNumber, var zip) -> line1 + ", apt. " + aptNumber + "  " + zip;
+
+        AddressOperation toSingleLine4 =
+                (var line1, @Nullable var aptNumber, @ZipCode var zip) -> line1 + ", apt. " + aptNumber + "  " + zip;
+
     }
 
     public static void notCool() {
+        // non-descriptive variable names
+        var x = List.of("Ella", "Jelly", "Eclair", "Jack");
+
+        // Unexpected type: ArrayList<Object>
+        var cats = new ArrayList<>();
+        cats.add("Jelly");
+        cats.add(true);
+        cats.add(-1);
     }
 
 
