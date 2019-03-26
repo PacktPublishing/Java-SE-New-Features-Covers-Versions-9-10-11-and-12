@@ -39,10 +39,39 @@ import org.openjdk.jmh.infra.Blackhole;
 
 public class MyBenchmark {
 
-	public void testCreateHashMapThenPut() {
+	@Benchmark
+	public void testCreateHashMapThenPut(Blackhole blackhole) {
 		Map<String, String> map = new HashMap<>();
 		map.put("Caesar", "Likes swimming");
 		map.put("Snoopy", "Likes jumping");
+		blackhole.consume(map);
+	}
+
+	@Benchmark
+	public void testCreateHashMapAndPutInInitialization(Blackhole blackhole) {
+		Map<String, String> map = new HashMap<>() {
+			{
+				put("Caesar", "Likes swimming");
+				put("Snoopy", "Likes jumping");
+			}
+		};
+		blackhole.consume(map);
+	}
+
+	@Benchmark
+	public void testJava9MapOf(Blackhole blackhole) {
+		var map = Map.of(//
+				"Caesar", "Likes swimming", //
+				"Snoopy", "Likes jumping");
+		blackhole.consume(map);
+	}
+
+	@Benchmark
+	public void testJava9MapOfEntriesMethod(Blackhole blackhole) {
+		var map = Map.ofEntries(//
+				Map.entry("Caesar", "Likes swimming"), //
+				Map.entry("Snoopy", "Likes jumping"));
+		blackhole.consume(map);
 	}
 
 }
