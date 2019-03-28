@@ -1,12 +1,11 @@
 # Java SE New Features: Covers Versions 9, 10, 11, and 12 [Video]
 This is the code repository for [Java SE New Features: Covers Versions 9, 10, 11, and 12 [Video]](https://www.packtpub.com/application-development/java-se-new-features-covers-versions-9-10-11-and-12-video?utm_source=github&utm_medium=repository&utm_campaign=9781789610062), published by [Packt](https://www.packtpub.com/?utm_source=github). It contains all the supporting project files necessary to work through the video course from start to finish.
 ## About the Video Course
-	As a developer, every day you need to learn new technologies… and quickly. With frequent Java releases, you need to constantly update your knowledge of Java too. This short course will equip you with insights into the newest key features of Java—in no time. 
+As a developer, every day you need to learn new technologies… and quickly. With frequent Java releases, you need to constantly update your knowledge of Java too. This short course will equip you with insights into the newest key features of Java—in no time. 
 
 We start by explaining the new release model and how it affects you. This course goes beyond Java's (in) famous modularity which allows us to partition a system into modules with clear dependencies. You'll learn to write more concise code with the coolest new features, including local variable type inference (var) and the improved API for strings, files and collections. You will also understand how to work with very popular reactive streams. The course finishes with a description of the new enhancements you can apply to improve the performance of your code.
 
 By the end of this short course, you'll know how to use the most powerful features of modern Java to write faster and more readable programs.
-
 
 <H2>What You Will Learn</H2>
 <DIV class=book-info-will-learn-text>
